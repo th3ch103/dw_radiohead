@@ -49,7 +49,22 @@ staging/
 analytics/
 ```
 
+## 6. How to Run This Project
 
-## 6. Summary
-This project demonstrates a full ELT workflow:
-**Extract → Load → Transform (dbt) → Visualize (Streamlit)**.
+### 1. Create environment
+python3 -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.txt
+
+### 2. Load data into Snowflake
+-- Run this SQL in Snowflake:
+CREATE OR REPLACE TABLE ITUNES_RADIOHEAD_RAW AS
+SELECT * FROM @~/itunes_radiohead_raw.csv;
+
+### 3. Run dbt models
+cd radiohead_project
+dbt run
+dbt test
+
+### 4. Start Streamlit dashboard
+streamlit run streamlit_app.py
